@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Happy Birthday, My Love! 💕</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .heart {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .mystery-box {
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .mystery-box:hover, .mystery-box:active {
+            transform: scale(1.03);
+        }
+        
+        .scratch-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            touch-action: none;
+        }
+        
+        .scratch-card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            cursor: crosshair;
+            touch-action: none;
+        }
+        
+        .ring {
+            width: 80px;
+            height: 80px;
+            border: 6px solid #ffd700;
+            border-radius: 50%;
+            position: relative;
+            animation: ringShine 2s ease-in-out infinite;
+        }
+        
+        @media (min-width: 768px) {
+            .ring {
+                width: 100px;
+                height: 100px;
+                border-width: 8px;
+            }
+        }
+        
+        .ring::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ffd700;
+            border-radius: 50%;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px #ffd700;
+        }
+        
+        @media (min-width: 768px) {
+            .ring::before {
+                width: 30px;
+                height: 30px;
+                top: -35px;
+            }
+        }
+        
+        @keyframes ringShine {
+            0%, 100% { box-shadow: 0 0 20px #ffd700; }
+            50% { box-shadow: 0 0 40px #ffd700, 0 0 60px #ffd700; }
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        
+        .balloon {
+            animation: balloonFloat 4s ease-in-out infinite;
+            display: inline-block;
+        }
+        
+        @keyframes balloonFloat {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        
+        /* Mobile-specific button styles */
+        .game-btn {
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        /* Fix for iOS button styling */
+        button {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        /* Responsive text sizes */
+        .hero-title {
+            font-size: clamp(2.5rem, 10vw, 6rem);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.75rem, 6vw, 3.5rem);
+        }
+        
+        .section-title {
+            font-size: clamp(1.75rem, 5vw, 3rem);
+        }
+        
+        /* Confetti fix for mobile */
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 16px;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Memory card responsive */
+        .memory-card {
+            aspect-ratio: 1;
+            min-height: 60px;
+        }
+        
+        @media (min-width: 640px) {
+            .memory-card {
+                min-height: 80px;
+            }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    
+    <!-- Floating Hearts Background -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="sparkle" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+        <div class="sparkle" style="top: 30%; left: 80%; animation-delay: 0.5s;"></div>
+        <div class="sparkle" style="top: 60%; left: 10%; animation-delay: 1s;"></div>
+        <div class="sparkle" style="top: 80%; left: 70%; animation-delay: 1.5s;"></div>
+        <div class="sparkle" style="top: 50%; left: 50%; animation-delay: 0.7s;"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative z-10 px-4 py-8">
+        <div class="text-center fade-in w-full max-w-4xl mx-auto">
+            <div class="text-6xl sm:text-7xl md:text-8xl mb-4 sm:mb-6 floating">🎂</div>
+            <h1 class="hero-title font-bold text-white cursive mb-2 sm:mb-4">
+                Happy Birthday
+            </h1>
+            <h2 class="hero-subtitle text-pink-200 cursive mb-4 sm:mb-8">
+                My Dearest Gudiya 💕
+            </h2>
+            <p class="text-base sm:text-xl md:text-2xl text-white max-w-2xl mx-auto mb-6 sm:mb-8 px-2">
+                Today, I celebrate not just your birthday, but the most beautiful soul that came into my life
+            </p>
+            <div class="flex gap-2 sm:gap-4 justify-center flex-wrap text-2xl sm:text-3xl md:text-4xl">
+                <span class="balloon">🎈</span>
+                <span class="balloon" style="animation-delay: 0.5s;">🎈</span>
+                <span class="balloon" style="animation-delay: 1s;">🎈</span>
+                <span class="heart">❤️</span>
+                <span class="balloon" style="animation-delay: 1.5s;">🎈</span>
+                <span class="balloon" style="animation-delay: 2s;">🎈</span>
+                <span class="balloon" style="animation-delay: 2.5s;">🎈</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Heartfelt Message Section -->
+    <section class="min-h-screen flex items-center justify-center px-3 sm:px-4 py-12 sm:py-20">
+        <div class="max-w-4xl mx-auto bg-white bg-opacity-95 rounded-2xl sm:rounded-3xl shadow-2xl p-5 sm:p-8 md:p-12 fade-in">
+            <h2 class="section-title font-bold text-center text-purple-800 cursive mb-6 sm:mb-8">
+                To My Bubba Jaan 💖
+            </h2>
+            <div class="space-y-4 sm:space-y-6 text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed">
+                <p>
+                    My dearest Lovie, when the world turned its back on me, when darkness seemed to surround every corner of my life, you were the light that never dimmed. You believed in me when no one else did. You saw the best in me when I couldn't see it in myself.
+                </p>
+                <p>
+                    Your love has been my anchor in the stormiest seas, my shelter in the coldest nights. You didn't just stand by me through the tough times—you held my hand, wiped my tears, and reminded me that I was never alone.
+                </p>
+                <p>
+                    Jaanu, you love me unconditionally—not for who I could be, not for what I have, but for who I am, flaws and all. Your love is pure, genuine, and more precious than anything in this world.
+                </p>
+                <p class="text-xl sm:text-2xl text-center text-pink-600 cursive font-bold">
+                    Thank you for being YOU. Thank you for being MINE. 
+                </p>
+                <p class="text-center text-2xl sm:text-3xl">
+                    💕 Forever Grateful 💕
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GIF Gallery Section -->
+    <section class="min-h-screen flex items-center justify-center px-3 sm:px-4 py-12 sm:py-20">
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="section-title font-bold text-center text-white cursive mb-8 sm:mb-12 px-2">
+                You Make My Heart Flutter, Sweetheart 💗
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+                <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl transform hover:scale-105 active:scale-105 transition-transform">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2dnaDFqY3JzbXJjdmRsNDg5NHJxYWdwNm42M3Vudzh6Z3VndXprbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/IVK6xNBpEAHYyOdghk/giphy.gif" alt="Penguin Love" class="w-full rounded-xl sm:rounded-2xl mb-3 sm:mb-4" loading="lazy">
+                    <p class="text-center text-lg sm:text-xl text-purple-800 font-semibold cursive">You and me, together forever 💕</p>
+                </div>
+                <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl transform hover:scale-105 active:scale-105 transition-transform">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2dnaDFqY3JzbXJjdmRsNDg5NHJxYWdwNm42M3Vudzh6Z3VndXprbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/5bdhq6YF0szPaCEk9Y/giphy.gif" alt="Bunny Kiss" class="w-full rounded-xl sm:rounded-2xl mb-3 sm:mb-4" loading="lazy">
+                    <p class="text-center text-lg sm:text-xl text-purple-800 font-semibold cursive">Sending you endless kisses, Baby</p>
+                </div>
+                <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl transform hover:scale-105 active:scale-105 transition-transform sm:col-span-2 md:col-span-1">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dnNnbW0xYWNzMTQyNDNjanJ2YjZhaHF1dmgxanF4bXZyMWJlOGI2eCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/7HdytY2FAUBKUf6T1w/giphy.gif" alt="Hearts" class="w-full rounded-xl sm:rounded-2xl mb-3 sm:mb-4" loading="lazy">
+                    <p class="text-center text-lg sm:text-xl text-purple-800 font-semibold cursive">My love for you grows every day</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fun Interactive Games Section -->
+    <section class="min-h-screen flex items-center justify-center px-3 sm:px-4 py-12 sm:py-20">
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="section-title font-bold text-center text-white cursive mb-2 sm:mb-4 px-2">
+                Play & Discover My Love 💖
+            </h2>
+            <p class="text-center text-white text-base sm:text-xl mb-8 sm:mb-12">Complete each game to unlock special messages!</p>
+            
+            <!-- Heart Click Game -->
+            <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl mb-6 sm:mb-8">
+                <h3 class="text-xl sm:text-2xl font-bold text-purple-800 cursive text-center mb-3 sm:mb-4">Game 1: Collect 10 Hearts 💕</h3>
+                <div class="text-center mb-3 sm:mb-4">
+                    <p class="text-base sm:text-lg text-gray-700">Hearts Collected: <span id="heartCount" class="font-bold text-pink-600">0</span>/10</p>
+                </div>
+                <div id="heartGame" class="grid grid-cols-5 gap-2 sm:gap-4 mb-4">
+                    <button onclick="collectHeart(this)" class="game-btn text-3xl sm:text-4xl md:text-5xl hover:scale-125 active:scale-125 transition-transform">💝</button>
+                    <button onclick="collectHeart(this)" class="game-btn text-3xl sm:text-4xl md:text-5xl hover:scale-125 active:scale-125 transition-transform">💝</button>
+                    <button onclick="collectHeart(this)" class="game-btn text-3xl sm:text-4xl md:text-5xl hover:scale-125 active:scale-125 transition-transform">💝</button>
+                    <button onclick="collectHeart(this)" class="game-btn text-3xl sm:text-4xl md:text-5xl hover:scale-125 active:scale-125 transition-transform">💝</button>
+                    <button onclick="collectHeart(this)" class="game-btn text-3xl sm:text-4xl md:text-5xl hover:scale-125 active:scale-125 transition-transform">💝</button>
+                    <button onclick="collectHeart(this)" class="game-btn text-3xl sm:text-4xl md:text-5xl hover:scale-125 active:scale-125 transition-transform">💝</button>
+                    <button onclick="collectHeart(this)" class="game-btn text-3xl sm:text-4xl md:text-5xl hover:scale-125 active:scale-125 transition-transform">💝</button>
+                    <button onclick="collectHeart(this)" class="game-btn text-3xl sm:text-4xl md:text-5xl hover:scale-125 active:scale-125 transition-transform">💝</button>
+                    <button onclick="collectHeart(this)" class="game-btn text-3xl sm:text-4xl md:text-5xl hover:scale-125 active:scale-125 transition-transform">💝</button>
+                    <button onclick="collectHeart(this)" class="game-btn text-3xl sm:text-4xl md:text-5xl hover:scale-125 active:scale-125 transition-transform">💝</button>
+                </div>
+                <div id="heartMessage" class="hidden bg-pink-100 p-4 sm:p-6 rounded-xl sm:rounded-2xl">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbjNmdGI4cDN2aWlmZW50NW03aDJmbjVqcjdlNWxwMXB6aGdvNzF4MiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Z21HJj2kz9uBG/giphy.gif" alt="Love GIF" class="w-48 sm:w-64 mx-auto rounded-xl sm:rounded-2xl mb-3 sm:mb-4" loading="lazy">
+                    <p class="text-lg sm:text-xl text-purple-800 cursive font-bold text-center">Every beat of my heart whispers your name, Sweetheart. You are my everything! 💖</p>
+                </div>
+            </div>
+
+            <!-- Balloon Pop Game -->
+            <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl mb-6 sm:mb-8">
+                <h3 class="text-xl sm:text-2xl font-bold text-purple-800 cursive text-center mb-3 sm:mb-4">Game 2: Pop All the Balloons! 🎈</h3>
+                <div class="text-center mb-3 sm:mb-4">
+                    <p class="text-base sm:text-lg text-gray-700">Balloons Left: <span id="balloonCount" class="font-bold text-pink-600">8</span></p>
+                </div>
+                <div id="balloonGame" class="grid grid-cols-4 gap-2 sm:gap-4 mb-4">
+                    <button onclick="popBalloon(this)" class="game-btn text-4xl sm:text-5xl md:text-6xl hover:scale-125 active:scale-125 transition-transform balloon">🎈</button>
+                    <button onclick="popBalloon(this)" class="game-btn text-4xl sm:text-5xl md:text-6xl hover:scale-125 active:scale-125 transition-transform balloon">🎈</button>
+                    <button onclick="popBalloon(this)" class="game-btn text-4xl sm:text-5xl md:text-6xl hover:scale-125 active:scale-125 transition-transform balloon">🎈</button>
+                    <button onclick="popBalloon(this)" class="game-btn text-4xl sm:text-5xl md:text-6xl hover:scale-125 active:scale-125 transition-transform balloon">🎈</button>
+                    <button onclick="popBalloon(this)" class="game-btn text-4xl sm:text-5xl md:text-6xl hover:scale-125 active:scale-125 transition-transform balloon">🎈</button>
+                    <button onclick="popBalloon(this)" class="game-btn text-4xl sm:text-5xl md:text-6xl hover:scale-125 active:scale-125 transition-transform balloon">🎈</button>
+                    <button onclick="popBalloon(this)" class="game-btn text-4xl sm:text-5xl md:text-6xl hover:scale-125 active:scale-125 transition-transform balloon">🎈</button>
+                    <button onclick="popBalloon(this)" class="game-btn text-4xl sm:text-5xl md:text-6xl hover:scale-125 active:scale-125 transition-transform balloon">🎈</button>
+                </div>
+                <div id="balloonMessage" class="hidden bg-pink-100 p-4 sm:p-6 rounded-xl sm:rounded-2xl">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3a3V5NWlpcmYwcWo2ODBlZjczMnlvb3k2dW82NXo4b2lzbTFjbHhiayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/SvkqfyWNwA0QHuoevr/giphy.gif" alt="Celebration GIF" class="w-48 sm:w-64 mx-auto rounded-xl sm:rounded-2xl mb-3 sm:mb-4" loading="lazy">
+                    <p class="text-lg sm:text-xl text-purple-800 cursive font-bold text-center">Just like these balloons, my love for you keeps rising higher and higher, Baby! 🎈💕</p>
+                </div>
+            </div>
+
+            <!-- Flip Card Memory Game -->
+            <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl">
+                <h3 class="text-xl sm:text-2xl font-bold text-purple-800 cursive text-center mb-3 sm:mb-4">Game 3: Find the Matching Love Cards! 💌</h3>
+                <div class="text-center mb-3 sm:mb-4">
+                    <p class="text-base sm:text-lg text-gray-700">Matches Found: <span id="matchCount" class="font-bold text-pink-600">0</span>/4</p>
+                </div>
+                <div id="memoryGame" class="grid grid-cols-4 gap-2 sm:gap-4 mb-4">
+                    <button onclick="flipCard(this, '💕')" class="memory-card text-2xl sm:text-3xl md:text-4xl bg-purple-200 rounded-lg sm:rounded-xl hover:bg-purple-300 active:bg-purple-300 transition-all flex items-center justify-center" data-flipped="false">❓</button>
+                    <button onclick="flipCard(this, '💖')" class="memory-card text-2xl sm:text-3xl md:text-4xl bg-purple-200 rounded-lg sm:rounded-xl hover:bg-purple-300 active:bg-purple-300 transition-all flex items-center justify-center" data-flipped="false">❓</button>
+                    <button onclick="flipCard(this, '💕')" class="memory-card text-2xl sm:text-3xl md:text-4xl bg-purple-200 rounded-lg sm:rounded-xl hover:bg-purple-300 active:bg-purple-300 transition-all flex items-center justify-center" data-flipped="false">❓</button>
+                    <button onclick="flipCard(this, '💗')" class="memory-card text-2xl sm:text-3xl md:text-4xl bg-purple-200 rounded-lg sm:rounded-xl hover:bg-purple-300 active:bg-purple-300 transition-all flex items-center justify-center" data-flipped="false">❓</button>
+                    <button onclick="flipCard(this, '💖')" class="memory-card text-2xl sm:text-3xl md:text-4xl bg-purple-200 rounded-lg sm:rounded-xl hover:bg-purple-300 active:bg-purple-300 transition-all flex items-center justify-center" data-flipped="false">❓</button>
+                    <button onclick="flipCard(this, '💝')" class="memory-card text-2xl sm:text-3xl md:text-4xl bg-purple-200 rounded-lg sm:rounded-xl hover:bg-purple-300 active:bg-purple-300 transition-all flex items-center justify-center" data-flipped="false">❓</button>
+                    <button onclick="flipCard(this, '💗')" class="memory-card text-2xl sm:text-3xl md:text-4xl bg-purple-200 rounded-lg sm:rounded-xl hover:bg-purple-300 active:bg-purple-300 transition-all flex items-center justify-center" data-flipped="false">❓</button>
+                    <button onclick="flipCard(this, '💝')" class="memory-card text-2xl sm:text-3xl md:text-4xl bg-purple-200 rounded-lg sm:rounded-xl hover:bg-purple-300 active:bg-purple-300 transition-all flex items-center justify-center" data-flipped="false">❓</button>
+                </div>
+                <div id="memoryMessage" class="hidden bg-pink-100 p-4 sm:p-6 rounded-xl sm:rounded-2xl">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3NjhuZjZmbDlhand1Ymo2MHhrZ2dxOWFsZ2NrdWV3aGt6eXhtNDlhdSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/sh11BmCf8HY8F0c5GN/giphy.gif" alt="Love GIF" class="w-48 sm:w-64 mx-auto rounded-xl sm:rounded-2xl mb-3 sm:mb-4" loading="lazy">
+                    <p class="text-lg sm:text-xl text-purple-800 cursive font-bold text-center">You and I are a perfect match, Jaanu! Like puzzle pieces that fit perfectly together! 🧩💕</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Mystery Boxes -->
+    <section class="min-h-screen flex items-center justify-center px-3 sm:px-4 py-12 sm:py-20">
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="section-title font-bold text-center text-white cursive mb-2 sm:mb-4 px-2">
+                Special Surprises for My Gudiya 🎁
+            </h2>
+            <p class="text-center text-white text-base sm:text-xl mb-8 sm:mb-12">Click on each gift box to reveal your surprise!</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+                <!-- Mystery Box 1 -->
+                <div class="mystery-box bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl text-center" onclick="revealGift(1)">
+                    <div id="box1-closed">
+                        <div class="text-6xl sm:text-7xl md:text-8xl mb-3 sm:mb-4">🎁</div>
+                        <p class="text-xl sm:text-2xl font-bold text-purple-800 cursive">Gift Box 1</p>
+                        <p class="text-gray-600 mt-2 text-sm sm:text-base">Click to open!</p>
+                    </div>
+                    <div id="box1-open" class="hidden">
+                        <div class="text-5xl sm:text-6xl mb-3 sm:mb-4">💝</div>
+                        <p class="text-lg sm:text-xl text-pink-600 font-bold cursive mb-2 sm:mb-3">A Promise</p>
+                        <p class="text-gray-700 text-sm sm:text-base">I promise to love you more with each passing day, to be your strength when you feel weak, and to make you smile even on the hardest days.</p>
+                    </div>
+                </div>
+
+                <!-- Mystery Box 2 -->
+                <div class="mystery-box bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl text-center" onclick="revealGift(2)">
+                    <div id="box2-closed">
+                        <div class="text-6xl sm:text-7xl md:text-8xl mb-3 sm:mb-4">🎁</div>
+                        <p class="text-xl sm:text-2xl font-bold text-purple-800 cursive">Gift Box 2</p>
+                        <p class="text-gray-600 mt-2 text-sm sm:text-base">Click to open!</p>
+                    </div>
+                    <div id="box2-open" class="hidden">
+                        <div class="text-5xl sm:text-6xl mb-3 sm:mb-4">🌹</div>
+                        <p class="text-lg sm:text-xl text-pink-600 font-bold cursive mb-2 sm:mb-3">A Garden of Roses</p>
+                        <p class="text-gray-700 text-sm sm:text-base">If I could, I would pick every rose in the world for you, Jaanu. But no flower can match your beauty and grace.</p>
+                    </div>
+                </div>
+
+                <!-- Mystery Box 3 -->
+                <div class="mystery-box bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl text-center sm:col-span-2 md:col-span-1" onclick="revealGift(3)">
+                    <div id="box3-closed">
+                        <div class="text-6xl sm:text-7xl md:text-8xl mb-3 sm:mb-4">🎁</div>
+                        <p class="text-xl sm:text-2xl font-bold text-purple-800 cursive">Gift Box 3</p>
+                        <p class="text-gray-600 mt-2 text-sm sm:text-base">Click to open!</p>
+                    </div>
+                    <div id="box3-open" class="hidden">
+                        <div class="text-5xl sm:text-6xl mb-3 sm:mb-4">⭐</div>
+                        <p class="text-lg sm:text-xl text-pink-600 font-bold cursive mb-2 sm:mb-3">You Are My Star</p>
+                        <p class="text-gray-700 text-sm sm:text-base">Among billions of people, you shine the brightest in my life. You are my guiding star, my hope, my everything.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scratch Card Game -->
+    <section class="min-h-screen flex items-center justify-center px-3 sm:px-4 py-12 sm:py-20">
+        <div class="max-w-4xl mx-auto w-full">
+            <h2 class="section-title font-bold text-center text-white cursive mb-2 sm:mb-4 px-2">
+                Scratch to Reveal Your Secret Message 💌
+            </h2>
+            <p class="text-center text-white text-base sm:text-xl mb-8 sm:mb-12">Use your finger to scratch!</p>
+            
+            <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl">
+                <div class="scratch-container">
+                    <div id="scratchMessage" class="text-center p-4 sm:p-6 bg-pink-100 rounded-xl sm:rounded-2xl" style="min-height: 200px; display: flex; flex-direction: column; justify-content: center;">
+                        <p class="text-lg sm:text-xl md:text-2xl text-purple-800 cursive font-bold mb-3 sm:mb-4">
+                            "Dear Lovie, you are the reason I believe in true love. Your smile is my favorite view, your laugh is my favorite sound, and your happiness is my life's purpose. I am blessed beyond measure to have you by my side. Happy Birthday, my forever love!"
+                        </p>
+                        <p class="text-3xl sm:text-4xl">💖✨💖</p>
+                    </div>
+                    <canvas id="scratchCanvas" class="scratch-card"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proposal Section -->
+    <section class="min-h-screen flex items-center justify-center px-3 sm:px-4 py-12 sm:py-20">
+        <div class="max-w-4xl mx-auto w-full text-center">
+            <h2 class="section-title font-bold text-white cursive mb-6 sm:mb-8 px-2">
+                A Question From My Heart 💍
+            </h2>
+            
+            <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 shadow-2xl">
+                <div id="proposalStart">
+                    <p class="text-lg sm:text-xl md:text-2xl text-gray-700 mb-6 sm:mb-8 leading-relaxed">
+                        Bubba Jaan, you have made my life complete. Every moment with you is a treasure. You are my best friend, my soulmate, my everything...
+                    </p>
+                    <button onclick="startProposal()" class="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 sm:px-12 py-3 sm:py-4 rounded-full text-xl sm:text-2xl font-bold hover:scale-110 active:scale-110 transition-transform shadow-lg cursive">
+                        Click Here, Baby 💕
+                    </button>
+                </div>
+                
+                <div id="proposalRing" class="hidden">
+                    <div class="flex justify-center mb-6 sm:mb-8">
+                        <div class="ring"></div>
+                    </div>
+                    <p class="text-2xl sm:text-3xl md:text-4xl text-purple-800 font-bold cursive mb-6 sm:mb-8">
+                        Will you continue this beautiful journey with me?
+                    </p>
+                    <p class="text-base sm:text-lg md:text-xl text-gray-700 mb-6 sm:mb-8">
+                        Will you let me love you, cherish you, and make you smile for the rest of our lives?
+                    </p>
+                    <div class="flex gap-4 sm:gap-6 justify-center flex-wrap">
+                        <button onclick="sayYes()" class="bg-gradient-to-r from-green-400 to-green-600 text-white px-8 sm:px-10 py-3 sm:py-4 rounded-full text-xl sm:text-2xl font-bold hover:scale-110 active:scale-110 transition-transform shadow-lg">
+                            YES! 💚
+                        </button>
+                        <button onclick="sayNo()" class="bg-gradient-to-r from-red-400 to-red-600 text-white px-8 sm:px-10 py-3 sm:py-4 rounded-full text-xl sm:text-2xl font-bold hover:scale-110 active:scale-110 transition-transform shadow-lg" id="noButton">
+                            No
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="proposalAnswer" class="hidden">
+                    <div class="text-6xl sm:text-7xl md:text-8xl mb-4 sm:mb-6">💑</div>
+                    <p class="text-2xl sm:text-3xl md:text-4xl text-pink-600 font-bold cursive mb-4 sm:mb-6">
+                        You've made me the happiest person alive! 🎉
+                    </p>
+                    <p class="text-lg sm:text-xl md:text-2xl text-gray-700 mb-3 sm:mb-4">
+                        I love you more than words can express, Sweetheart!
+                    </p>
+                    <p class="text-4xl sm:text-5xl md:text-6xl">💖💍💖</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Love Message -->
+    <section class="min-h-screen flex items-center justify-center px-3 sm:px-4 py-12 sm:py-20">
+        <div class="max-w-4xl mx-auto bg-white bg-opacity-95 rounded-2xl sm:rounded-3xl shadow-2xl p-5 sm:p-8 md:p-12">
+            <h2 class="section-title font-bold text-center text-purple-800 cursive mb-4 sm:mb-8">
+                26 Reasons Why I Love You 💕
+            </h2>
+            <p class="text-center text-gray-600 text-base sm:text-lg mb-6 sm:mb-8">One for each beautiful year of your life ✨</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-sm sm:text-base md:text-lg text-gray-700">
+                <div class="bg-pink-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your beautiful smile</div>
+                <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your kind heart</div>
+                <div class="bg-pink-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your unwavering support</div>
+                <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your infectious laugh</div>
+                <div class="bg-pink-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your gentle soul</div>
+                <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your strength</div>
+                <div class="bg-pink-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your understanding</div>
+                <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your patience with me</div>
+                <div class="bg-pink-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your beautiful eyes</div>
+                <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your loving nature</div>
+                <div class="bg-pink-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your belief in me</div>
+                <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your presence in my life</div>
+                <div class="bg-pink-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your caring ways</div>
+                <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your loyalty</div>
+                <div class="bg-pink-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your warmth</div>
+                <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your grace</div>
+                <div class="bg-pink-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your honesty</div>
+                <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your dreams</div>
+                <div class="bg-pink-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your courage</div>
+                <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your love for me</div>
+                <div class="bg-pink-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your cute habits</div>
+                <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your thoughtfulness</div>
+                <div class="bg-pink-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your uniqueness</div>
+                <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your passion</div>
+                <div class="bg-pink-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Your companionship</div>
+                <div class="bg-purple-50 p-3 sm:p-4 rounded-lg sm:rounded-xl">💖 Simply being YOU</div>
+            </div>
+            <div class="text-center mt-8 sm:mt-12">
+                <p class="text-2xl sm:text-3xl text-pink-600 cursive font-bold mb-3 sm:mb-4">
+                    Happy Birthday, My Beautiful Gudiya! 🎂
+                </p>
+                <p class="text-base sm:text-lg md:text-xl text-gray-700">
+                    Here's to celebrating your amazing existence and to many more beautiful years together! 
+                </p>
+                <p class="text-3xl sm:text-4xl md:text-5xl mt-4 sm:mt-6">🎉💕🎈</p>
+                <p class="text-xl sm:text-2xl text-purple-800 cursive mt-6 sm:mt-8">
+                    Forever Yours, With All My Love ❤️
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Heart Collection Game
+        let heartsCollected = 0;
+        function collectHeart(button) {
+            if (!button.classList.contains('collected')) {
+                button.classList.add('collected');
+                button.textContent = '✨';
+                heartsCollected++;
+                document.getElementById('heartCount').textContent = heartsCollected;
+                
+                if (heartsCollected === 10) {
+                    document.getElementById('heartMessage').classList.remove('hidden');
+                    document.getElementById('heartMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        // Balloon Pop Game
+        let balloonsLeft = 8;
+        function popBalloon(button) {
+            if (!button.classList.contains('popped')) {
+                button.classList.add('popped');
+                button.textContent = '💥';
+                button.style.animation = 'none';
+                balloonsLeft--;
+                document.getElementById('balloonCount').textContent = balloonsLeft;
+                
+                if (balloonsLeft === 0) {
+                    document.getElementById('balloonMessage').classList.remove('hidden');
+                    document.getElementById('balloonMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        // Memory Card Game
+        let firstCard = null;
+        let secondCard = null;
+        let matchesFound = 0;
+        let lockBoard = false;
+
+        function flipCard(button, symbol) {
+            if (lockBoard || button.dataset.flipped === 'true' || button === firstCard) return;
+            
+            button.textContent = symbol;
+            button.dataset.symbol = symbol;
+            
+            if (!firstCard) {
+                firstCard = button;
+                return;
+            }
+            
+            secondCard = button;
+            lockBoard = true;
+            
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            const isMatch = firstCard.dataset.symbol === secondCard.dataset.symbol;
+            
+            if (isMatch) {
+                firstCard.dataset.flipped = 'true';
+                secondCard.dataset.flipped = 'true';
+                firstCard.classList.remove('bg-purple-200');
+                secondCard.classList.remove('bg-purple-200');
+                firstCard.classList.add('bg-green-200');
+                secondCard.classList.add('bg-green-200');
+                matchesFound++;
+                document.getElementById('matchCount').textContent = matchesFound;
+                
+                if (matchesFound === 4) {
+                    setTimeout(() => {
+                        document.getElementById('memoryMessage').classList.remove('hidden');
+                        document.getElementById('memoryMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 500);
+                }
+                
+                resetBoard();
+            } else {
+                setTimeout(() => {
+                    firstCard.textContent = '❓';
+                    secondCard.textContent = '❓';
+                    resetBoard();
+                }, 1000);
+            }
+        }
+
+        function resetBoard() {
+            [firstCard, secondCard, lockBoard] = [null, null, false];
+        }
+
+        // Mystery Box Reveal Function
+        function revealGift(boxNumber) {
+            const closedBox = document.getElementById(`box${boxNumber}-closed`);
+            const openBox = document.getElementById(`box${boxNumber}-open`);
+            
+            if (closedBox && !closedBox.classList.contains('hidden')) {
+                closedBox.classList.add('hidden');
+                openBox.classList.remove('hidden');
+            }
+        }
+
+        // Scratch Card Functionality
+        function initScratchCard() {
+            const canvas = document.getElementById('scratchCanvas');
+            const container = document.querySelector('.scratch-container');
+            const messageEl = document.getElementById('scratchMessage');
+            
+            if (!canvas || !container) return;
+            
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size to match container
+            function resizeCanvas() {
+                const rect = messageEl.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+                
+                // Redraw the overlay
+                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                gradient.addColorStop(0, '#ffd700');
+                gradient.addColorStop(1, '#ffed4e');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Add text
+                const fontSize = Math.min(24, canvas.width / 15);
+                ctx.font = `bold ${fontSize}px Poppins, sans-serif`;
+                ctx.fillStyle = '#333';
+                ctx.textAlign = 'center';
+                ctx.fillText('✨ Scratch Here ✨', canvas.width / 2, canvas.height / 2);
+            }
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            let isScratching = false;
+            
+            function getCoordinates(e) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                
+                if (e.touches && e.touches[0]) {
+                    return {
+                        x: (e.touches[0].clientX - rect.left) * scaleX,
+                        y: (e.touches[0].clientY - rect.top) * scaleY
+                    };
+                }
+                return {
+                    x: (e.clientX - rect.left) * scaleX,
+                    y: (e.clientY - rect.top) * scaleY
+                };
+            }
+            
+            function scratch(x, y) {
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(x, y, 25, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Check scratched percentage
+                checkScratchProgress();
+            }
+            
+            function checkScratchProgress() {
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                let transparent = 0;
+                for (let i = 3; i < imageData.data.length; i += 4) {
+                    if (imageData.data[i] === 0) transparent++;
+                }
+                const scratchedPercentage = (transparent / (imageData.data.length / 4)) * 100;
+                
+                if (scratchedPercentage > 50) {
+                    canvas.style.transition = 'opacity 0.3s';
+                    canvas.style.opacity = '0';
+                    setTimeout(() => canvas.style.display = 'none', 300);
+                }
+            }
+            
+            // Mouse events
+            canvas.addEventListener('mousedown', (e) => {
+                isScratching = true;
+                const coords = getCoordinates(e);
+                scratch(coords.x, coords.y);
+            });
+            
+            canvas.addEventListener('mousemove', (e) => {
+                if (isScratching) {
+                    const coords = getCoordinates(e);
+                    scratch(coords.x, coords.y);
+                }
+            });
+            
+            canvas.addEventListener('mouseup', () => isScratching = false);
+            canvas.addEventListener('mouseleave', () => isScratching = false);
+            
+            // Touch events
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                isScratching = true;
+                const coords = getCoordinates(e);
+                scratch(coords.x, coords.y);
+            }, { passive: false });
+            
+            canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                if (isScratching) {
+                    const coords = getCoordinates(e);
+                    scratch(coords.x, coords.y);
+                }
+            }, { passive: false });
+            
+            canvas.addEventListener('touchend', () => isScratching = false);
+            canvas.addEventListener('touchcancel', () => isScratching = false);
+        }
+        
+        // Initialize scratch card when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initScratchCard);
+        } else {
+            initScratchCard();
+        }
+
+        // Proposal Functions
+        function startProposal() {
+            document.getElementById('proposalStart').classList.add('hidden');
+            document.getElementById('proposalRing').classList.remove('hidden');
+        }
+        
+        function sayYes() {
+            document.getElementById('proposalRing').classList.add('hidden');
+            document.getElementById('proposalAnswer').classList.remove('hidden');
+            
+            // Create confetti effect
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => createConfetti(), i * 30);
+            }
+        }
+        
+        let noClickCount = 0;
+        function sayNo() {
+            const noButton = document.getElementById('noButton');
+            noClickCount++;
+            
+            if (noClickCount === 1) {
+                noButton.textContent = 'Are you sure? 🥺';
+            } else if (noClickCount === 2) {
+                noButton.textContent = 'Please? 🥺💔';
+            } else if (noClickCount === 3) {
+                noButton.textContent = 'I love you! 💕';
+            } else {
+                // Move button randomly within viewport
+                const maxX = window.innerWidth - noButton.offsetWidth - 20;
+                const maxY = window.innerHeight - noButton.offsetHeight - 20;
+                const x = Math.max(10, Math.random() * maxX);
+                const y = Math.max(10, Math.random() * maxY);
+                
+                noButton.style.position = 'fixed';
+                noButton.style.left = x + 'px';
+                noButton.style.top = y + 'px';
+                noButton.style.zIndex = '9999';
+                noButton.textContent = "Can't click me! 😄";
+            }
+        }
+        
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * window.innerWidth + 'px';
+            confetti.style.top = '-20px';
+            confetti.textContent = ['❤️', '💕', '💖', '✨', '🎉', '💝'][Math.floor(Math.random() * 6)];
+            
+            document.body.appendChild(confetti);
+            
+            let pos = -20;
+            let horizontalPos = parseFloat(confetti.style.left);
+            const speed = 3 + Math.random() * 3;
+            const wobble = (Math.random() - 0.5) * 3;
+            
+            const fall = setInterval(() => {
+                if (pos > window.innerHeight) {
+                    clearInterval(fall);
+                    confetti.remove();
+                } else {
+                    pos += speed;
+                    horizontalPos += wobble;
+                    confetti.style.top = pos + 'px';
+                    confetti.style.left = horizontalPos + 'px';
+                }
+            }, 20);
+        }
+    </script>
+</body>
+</html>
